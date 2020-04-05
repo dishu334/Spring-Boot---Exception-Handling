@@ -1,0 +1,81 @@
+buildscript {
+	ext {
+		springBootVersion = '2.2.6.RELEASE'
+		aptPluginVersion = '0.18'
+		gradleGitVersion = '0.11.0'
+		powerMockVersion = '2.0.2'
+		powerMockApiVersion = '2.0.2'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'idea'
+apply plugin: "base"
+apply plugin: "maven"
+apply plugin: "maven-publish"
+apply plugin: "io.spring.dependency-management"
+
+
+jar {
+	baseName = 'boot-gradle'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+ext{
+	lombokVersion = '1.18.8'
+	logbackVersion = '1.2.3'
+} 
+
+
+configurations{
+	compile.exclude module: 'spring-boot-starter-tomcat'
+	compile.exclude module: 'spring-boot-starter-logging'
+	compile.exclude module: 'org.apache.tomcat'
+	compile.exclude module: 'org.apache.tomcat.embed'	
+}
+
+dependencies {
+	
+	
+	annotationProcessor("org.projectlombok:lombok:1.18.8")
+			
+	implementation("ch.qos.logback:logback-classic:${logbackVersion}")
+	
+    implementation("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-freemarker:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
+
+	compileOnly ("org.projectlombok:lombok:${lombokVersion}")
+	compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+	
+	testCompileOnly ("org.projectlombok:${lombokVersion}")
+	
+	testAnnotationProcessor ("org.projectlombok:lombok:${lombokVersion}")
+	
+	testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+	testImplementation("org.projectlombok:${lombokVersion}")
+	
+	testImplementation("org.powermock:powermock-module-junit4:${powerMockVersion}")
+    testImplementation("org.powermock:powermock-api-mockito2:${powerMockApiVersion}")
+	
+
+}
+
+
+
+
