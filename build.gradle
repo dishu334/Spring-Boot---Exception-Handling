@@ -35,9 +35,10 @@ repositories {
 	mavenCentral()
 }
 
-ext{
+ext {
 	lombokVersion = '1.18.8'
 	logbackVersion = '1.2.3'
+	jacksonVersion = '2.11.0.rc1'
 } 
 
 
@@ -51,7 +52,7 @@ configurations{
 dependencies {
 	
 	
-	annotationProcessor("org.projectlombok:lombok:1.18.8")
+	annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
 			
 	implementation("ch.qos.logback:logback-classic:${logbackVersion}")
 	
@@ -59,6 +60,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-freemarker:${springBootVersion}")
     implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
     implementation("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
+    
+    implementation("com.fasterxml.jackson.core:jackson-core:${jacksonVersion}")
+    implementation("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
+  	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${jacksonVersion}")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}")  
 
 	compileOnly ("org.projectlombok:lombok:${lombokVersion}")
 	compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
@@ -72,10 +78,4 @@ dependencies {
 	
 	testImplementation("org.powermock:powermock-module-junit4:${powerMockVersion}")
     testImplementation("org.powermock:powermock-api-mockito2:${powerMockApiVersion}")
-	
-
 }
-
-
-
-
